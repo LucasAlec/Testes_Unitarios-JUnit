@@ -16,7 +16,7 @@ public class LocacaoService {
 		locacao.setUsuario(usuario);
 		locacao.setDataLocacao(new Date());
 		locacao.setValor(filme.getPrecoLocacao());
-
+		
 		//Entrega no dia seguinte
 		Date dataEntrega = new Date();
 		dataEntrega = adicionarDias(dataEntrega, 1);
