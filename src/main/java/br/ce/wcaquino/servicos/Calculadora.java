@@ -8,7 +8,7 @@ public class Calculadora {
 		return a + b;
 	}
 
-	public int subtrai(int a, int b) {
+	public int subtrair(int a, int b) {
 		return a - b;
 	}
 
