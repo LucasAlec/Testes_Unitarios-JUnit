@@ -3,6 +3,7 @@ package br.ce.wcaquino.servicos;
 
 
 import static br.ce.wcaquino.builders.FilmeBuilder.umFilme;
+import static br.ce.wcaquino.builders.FilmeBuilder.umFilmeSemEstoque;
 import static br.ce.wcaquino.builders.UsuarioBuilder.umUsuario;
 import static br.ce.wcaquino.matchers.MatchersProprios.caiNumaSegunda;
 import static br.ce.wcaquino.matchers.MatchersProprios.ehHoje;
@@ -24,14 +25,13 @@ import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
-import br.ce.wcaquino.builders.FilmeBuilder;
-import br.ce.wcaquino.builders.UsuarioBuilder;
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.Locacao;
 import br.ce.wcaquino.entidades.Usuario;
 import br.ce.wcaquino.exceptions.FilmeSemEstoqueException;
 import br.ce.wcaquino.exceptions.LocadoraException;
 import br.ce.wcaquino.utils.DataUtils;
+import buildermaster.BuilderMaster;
 
 public class LocacaoServiceTest {
 
@@ -54,7 +54,7 @@ public class LocacaoServiceTest {
 		
 		//cenario
 		Usuario usuario = umUsuario().agora();
-		List<Filme> filmes = Arrays.asList(umFilme().agora());
+		List<Filme> filmes = Arrays.asList(umFilme().comValor(5.0).agora());
 		
 		//acao
 		Locacao locacao = service.alugarFilme(usuario, filmes);
@@ -69,7 +69,7 @@ public class LocacaoServiceTest {
 	public void naoDeveAlugarFilmeSemEstoque() throws Exception{
 		//cenario
 		Usuario usuario = umUsuario().agora();
-		List<Filme> filmes = Arrays.asList(umFilme().agora());
+		List<Filme> filmes = Arrays.asList(umFilmeSemEstoque().agora());
 		
 		//acao
 		service.alugarFilme(usuario, filmes);
@@ -115,5 +115,9 @@ public class LocacaoServiceTest {
 		//verificacao
 		assertThat(retorno.getDataRetorno(), caiNumaSegunda());
 		
+	}
+	
+	public static void main(String[] args) {
+		new BuilderMaster().gerarCodigoClasse(Locacao.class);
 	}
 }
